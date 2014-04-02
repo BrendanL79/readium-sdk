@@ -126,6 +126,11 @@ public class Container {
 	 * Public methods
 	 */
 	
+    public static Container openContainer(String path) {
+    	// TODO: Implement this
+    	return null;
+    }
+    
 	/**
 	 * Closes this container and releases any data of it.
 	 */
@@ -146,6 +151,9 @@ public class Container {
 			for( Package p : mPackages) {
 				p.close();
 			}
+			
+			// Set closed
+			mClosed = true;
 		} else {
 			// Log error
 			Log.e(TAG, "Closing already closed container [ptr:" + String.format("%X", __nativePtr) + ", path:" + mPath + "]");
@@ -172,6 +180,10 @@ public class Container {
 
     public Package getDefaultPackage() {
         return mPackages.isEmpty() ? null : mPackages.get(0);
+    }
+    
+    public List<Package> getPackages() {
+    	return mPackages;
     }
 
     public String getVersion() {

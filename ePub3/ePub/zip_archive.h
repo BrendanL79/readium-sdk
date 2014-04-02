@@ -67,12 +67,15 @@ public:
     EPUB3_EXPORT
     Archive & operator = (ZipArchive &&o);
     
+    virtual void EachItem(std::function<void(const ArchiveItemInfo&)> fn) const OVERRIDE;
+    
     virtual bool ContainsItem(const string & path) const;
     virtual bool DeleteItem(const string & path);
     
     virtual bool CreateFolder(const string & path);
     
     virtual unique_ptr<ByteStream> ByteStreamAtPath(const string& path) const;
+    virtual unique_ptr<AsyncByteStream> AsyncByteStreamAtPath(const string& path) const;
     
     virtual unique_ptr<ArchiveReader> ReaderAtPath(const string & path) const;
     virtual unique_ptr<ArchiveWriter> WriterAtPath(const string & path, bool compress=true, bool create=true);

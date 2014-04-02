@@ -20,6 +20,8 @@
 //
 
 
+#include <memory>
+
 #include <jni.h>
 
 
@@ -66,11 +68,20 @@ extern jmethodID addSpineItemToList_ID;
 extern jmethodID createNavigationTable_ID;
 extern jmethodID createNavigationPoint_ID;
 extern jmethodID addElementToParent_ID;
+extern jmethodID createManifestItemList_ID;
+extern jmethodID createManifestItem_ID;
+extern jmethodID addManifestItemToList_ID;
 
 
 /*
  * Exported functions
  **************************************************/
+
+/**
+ * Helper function to get the __nativePtr from the Java object
+ * and translate it to a smart pointer on result.
+ */
+std::shared_ptr<void> getNativePtr(JNIEnv *env, jobject thiz);
 
 /**
  * Helper function to create a jstring from a native string.
@@ -125,6 +136,13 @@ JNIEXPORT void JNI_OnUnload(JavaVM* vm, void* reserved);
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_org_readium_sdk_android_EPub3_setCachePath(JNIEnv* env, jobject thiz, jstring cachePath);
+
+/*
+ * Class:     org_readium_sdk_android_EPub3
+ * Method:    isEpub3Book
+ * Signature: (Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_readium_sdk_android_EPub3_isEpub3Book(JNIEnv* env, jobject thiz, jstring Path);
 
 /*
  * Class:     org_readium_sdk_android_EPub3
